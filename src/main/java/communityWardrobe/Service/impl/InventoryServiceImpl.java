@@ -1,19 +1,18 @@
 package communityWardrobe.Service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import communityWardrobe.Controller.model.InventoryDTO;
 import communityWardrobe.Controller.model.InventoryDetailsDTO;
 import communityWardrobe.Controller.model.InventoryResponseDTO;
 import communityWardrobe.Service.InventoryService;
 import communityWardrobe.dataAccess.InventoryRepository;
 import communityWardrobe.dataAccess.model.InventoryEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -52,5 +51,23 @@ public class InventoryServiceImpl implements InventoryService{
 			inventories.add(new InventoryDetailsDTO(inventoryEntity));
 		}
 		return (!inventories.isEmpty()) ? inventories : null;
+	}
+
+	@Override
+	public void postInventories(List<InventoryDTO> inventories){
+
+		for(InventoryDTO inventory: inventories){
+			for(InventoryDetailsDTO inventoryDetail: inventory.getDetails()){
+				InventoryEntity entity = new InventoryEntity();
+				entity.setCategory(inventory.getCategory());
+				entity.setQuantity(inventoryDetail.getQuantity());
+				entity.setSize(inventoryDetail.getSize());
+				entity.setType(inventoryDetail.getType());
+				inventoryRepository.save(entity);
+			}
+
+		}
+
+		return;
 	}
 }
