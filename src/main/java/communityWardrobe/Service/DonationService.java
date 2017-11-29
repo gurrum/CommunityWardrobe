@@ -6,4 +6,6 @@ public interface DonationService {
 
 	DonationDTO getDonation(String donationId);
 
+	void createDonation(DonationDTO donationDTO);
+
 }

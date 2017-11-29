@@ -6,7 +6,7 @@ public class DonationDTO {
 
 	private int donationId;
 
-	private String donatorName;
+	private String donatorEmail;
 
 	private String quantity;
 
@@ -24,12 +24,12 @@ public class DonationDTO {
 		this.donationId = donationId;
 	}
 
-	public String getDonatorName() {
-		return donatorName;
+	public String getDonatorEmail() {
+		return donatorEmail;
 	}
 
-	public void setDonatorName(String donatorName) {
-		this.donatorName = donatorName;
+	public void setDonatorEmail(String donatorEmail) {
+		this.donatorEmail = donatorEmail;
 	}
 
 	public String getQuantity() {

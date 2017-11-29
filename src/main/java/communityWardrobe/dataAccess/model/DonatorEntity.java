@@ -18,6 +18,17 @@ public class DonatorEntity {
 	@Column(name = "DONATOR_ADDRESS")
 	private String donatorAddress;
 
+	@Column(name = "EMAIL")
+	private String email;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public Integer getDonatorId() {
 		return donatorId;
 	}
