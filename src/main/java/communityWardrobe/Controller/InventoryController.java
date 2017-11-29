@@ -19,14 +19,14 @@ public class InventoryController {
 	@Autowired
 	private InventoryService inventoryService;
 
-	@RequestMapping(value = "/inventory", method = RequestMethod.GET)
+	@RequestMapping(value = "/inventories/", method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<InventoryResponseDTO> getClothes() {
+	public ResponseEntity<InventoryResponseDTO> getInventory() {
 		InventoryResponseDTO response = inventoryService.getInventoryResponse();
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/ap/orders", method = RequestMethod.POST)
+	@RequestMapping(value = "/inventories", method = RequestMethod.POST)
 	public ResponseEntity createInventory(@RequestBody List<InventoryDTO> inventories){
 
 		inventoryService.postInventories(inventories);
