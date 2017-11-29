@@ -24,23 +24,28 @@ public class InventoryServiceImpl implements InventoryService{
 	
 	@Override
 	public InventoryResponseDTO getInventoryResponse() {
-		InventoryResponseDTO response = new InventoryResponseDTO();
+		InventoryResponseDTO response = null;
 		List<InventoryDTO> listOfInventory = new ArrayList<>();
 		List<String> categories = inventoryRepository.findDistinctCategory();
 		for (String category : categories) {
-			InventoryDTO inventory = new InventoryDTO();
-			inventory.setCategory(category);
-			inventory.setDetails(getInventoryDTOForCategory(category));
-			listOfInventory.add(inventory);
+			listOfInventory.add(getInventoryDTO(category));
 		}
 		if (!listOfInventory.isEmpty()) {
+			response = new InventoryResponseDTO();
 			response.setInventory(listOfInventory);
 		}
-		return (!listOfInventory.isEmpty()) ? response : null;
+		return response;
 
 	}
 
-	private List<InventoryDetailsDTO> getInventoryDTOForCategory(String category) {
+	private InventoryDTO getInventoryDTO(String category) {
+		InventoryDTO inventory = new InventoryDTO();
+		inventory.setCategory(category);
+		inventory.setDetails(getInventoryDetails(category));
+		return inventory;
+	}
+
+	private List<InventoryDetailsDTO> getInventoryDetails(String category) {
 		List<InventoryDetailsDTO> inventories = new ArrayList<>();
 		List<InventoryEntity> inventoryEntities = inventoryRepository.findByCategory(category);
 		for (InventoryEntity inventoryEntity : inventoryEntities) {
